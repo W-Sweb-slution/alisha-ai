@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: alisha-ai
+    runtime: node
+    plan: 1c-2g
+    numInstances: 1
+    buildCommand: npm ci --omit=dev
+    startCommand: npm run start:render
+    healthCheckPath: /healthz
+    autoDeployTrigger: 'off'
+    disk:
+      name: alisha-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: TRUST_PROXY
+        value: '1'
+      - key: AUTH_DB_PATH
+        value: /var/data/alisha-auth.sqlite
+      - key: AUTH_DB_REQUIRE_EXISTING
+        value: 'true'
+      - key: RENDER_MAINTENANCE_MODE
+        value: 'true'
+      - key: N8N_ACCOUNT_AWARE_PUBLISHING_ENABLED
+        value: 'false'
+      - key: SESSION_SECRET
+        sync: false
+      - key: SOCIAL_TOKEN_ENCRYPTION_KEY
+        sync: false
+      - key: GOOGLE_TOKEN_ENCRYPTION_KEY
+        sync: false
+# Set remaining OAuth, Google Sheets and n8n values privately in the dashboard.
+# Keep the existing secret/key values when importing the existing database.

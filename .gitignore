@@ -1,0 +1,17 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.sqlite*
+*.db
+*.db-*
+*.pem
+*.key
+client_secret*.json
+credentials*.json
+outputs/
+work/
+npm-debug.log*
+
+data/
+
